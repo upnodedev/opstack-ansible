@@ -1,0 +1,6 @@
+- name: Roll-op
+  hosts: '{{ target }}'
+  gather_facts: false
+  roles:
+    - opstack
+    - traefik

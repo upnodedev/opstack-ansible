@@ -1,0 +1,50 @@
+version: '3.1'
+
+services:
+
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: always
+    ports:
+      - "2001:2001"
+      - "80:80"
+      - "443:443"
+    command:
+      - "--api=true"
+      - "--api.dashboard=true"
+      - "--log.level=DEBUG"
+      - "--metrics.prometheus=true"
+      - "--metrics.prometheus.buckets=0.1,0.3,1.2,5.0"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.file.directory=/etc/traefik/config"
+      - "--entrypoints.traefik.address=:2001"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.main-resolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.main-resolver.acme.email={{user_email}}"
+      - "--certificatesresolvers.main-resolver.acme.storage=/letsencrypt/acme.json"
+    volumes:
+      - "traefik_letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "{{user_dir}}/traefik/config:/etc/traefik/config"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.main-auth.basicauth.users={{http_username}}:{{http_password | password_hash("md5") | replace('$', '$$') }}"
+      - "traefik.http.middlewares.main-auth.basicauth.removeheader=true"
+      - "traefik.http.routers.api.entryPoints=traefik"
+      - "traefik.http.routers.api.service=api@internal"
+      - "traefik.http.routers.api.rule=PathPrefix(`/api`) || PathPrefix(`/dashboard`)"
+      - "traefik.http.routers.api.middlewares=main-auth"
+
+volumes:
+  traefik_letsencrypt:
+
+networks:
+  default:
+    external: true
+    name: traefik_proxy
+    

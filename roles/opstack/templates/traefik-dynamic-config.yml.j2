@@ -1,0 +1,43 @@
+http:
+  routers:
+    roll_op_rpc-http:
+      rule: "Host(`{{domain_name}}`)"
+      service: roll_op_rpc
+      entryPoints:
+        - web
+      middlewares:
+        - main-auth
+    roll_op_rpc-https:
+      rule: "Host(`{{domain_name}}`)"
+      service: roll_op_rpc
+      entryPoints:
+        - websecure
+      middlewares:
+        - main-auth
+      tls:
+        certResolver: main-resolver
+    blockscout-http:
+      rule: "Host(`{{explorer_domain}}`)"
+      service: blockscout
+      entryPoints:
+        - web
+      middlewares:
+        - main-auth
+    blockscout-https:
+      rule: "Host(`{{explorer_domain}}`)"
+      service: blockscout
+      entryPoints:
+        - websecure
+      middlewares:
+        - main-auth
+      tls:
+        certResolver: main-resolver
+  services:
+    roll_op_rpc:
+      loadbalancer:
+        servers:
+          - url: "http://host.docker.internal:9545/"
+    blockscout:
+      loadbalancer:
+        servers:
+          - url: "http://blockscout:{{blockscout_port}}/"

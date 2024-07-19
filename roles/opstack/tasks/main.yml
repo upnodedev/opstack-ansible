@@ -1,0 +1,52 @@
+---
+# tasks file for opstack
+
+- name: Install required apt packages
+  become: true
+  apt:
+    name:
+      - software-properties-common
+      - git
+
+- name: Clone opstack-compose repo
+  git:
+    repo: 'https://github.com/upnodedev/opstack-compose'
+    dest: 'opstack-compose'
+
+- name: Docker setup
+  include_role:
+    name: geerlingguy.docker
+  vars:
+    docker_install_compose_plugin: true
+    docker_users:
+      - '{{ansible_user}}'
+
+- name: Copy traefik dynamic config file
+  template:
+    src: templ.env.j2
+    dest: 'opstack-compose/.env'
+    mode: '0644'
+
+- name: Start opstack
+  become: true
+  docker_compose_v2:
+    project_src: 'opstack-compose'
+    build: always
+    profiles:
+      - sequencer
+    restarted: yes
+  timeout: 600
+  retries: 5
+  ignore_errors: yes
+
+- name: Start blockscout
+  become: true
+  docker_compose_v2:
+    project_src: 'opstack-compose/blockscout'
+    build: always
+    profiles:
+      - sequencer
+    restarted: yes
+  timeout: 600
+  retries: 5
+  ignore_errors: yes

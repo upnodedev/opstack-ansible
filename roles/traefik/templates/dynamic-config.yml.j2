@@ -1,0 +1,19 @@
+http:
+  routers:
+    controller-api-http:
+      rule: "PathPrefix(`/controller`)"
+      service: controller-api
+      entryPoints:
+        - traefik
+      middlewares: main-auth
+  services:
+    controller-api:
+      loadbalancer:
+        servers:
+          - url: "http://host.docker.internal:1111"
+  middlewares:
+    main-auth:
+      basicauth:
+        users: {{http_username}}:{{http_password | password_hash("md5") }}
+        removeheader: true
+
