@@ -1,2 +1,3 @@
 ---
 # defaults file for opstack
+blockscout_port: 4000

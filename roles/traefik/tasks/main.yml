@@ -4,38 +4,49 @@
   become: true
   become_user: '{{ansible_user}}'
   file:
-    path: '{{user_dir}}/traefik'
+    path: 'traefik'
     state: directory
     mode: '0755'
+
+- name: Get absolute folder path
+  ansible.builtin.command:
+    cmd: "readlink -f traefik"
+  register: folder_abs
+  changed_when: False
+
+- name: set trafik dir
+  set_fact:
+    traefik_dir: "{{folder_abs.stdout}}"
 
 - name: Copy docker compose file
   template:
     src: docker-compose.yml.j2
-    dest: '{{user_dir}}/traefik/docker-compose.yml'
+    dest: 'traefik/docker-compose.yml'
     mode: '0644'
 
 - name: Create config folder for traefik
   become: true
   become_user: '{{ansible_user}}'
   file:
-    path: '{{user_dir}}/traefik/config'
+    path: 'traefik/config'
     state: directory
     mode: '0755'
 
 - name: Copy traefik dynamic config file
   template:
-    src: dynamic_config.yml.j2
-    dest: '{{user_dir}}/traefik/config/base_config.yml'
+    src: dynamic-config.yml.j2
+    dest: 'traefik/config/base_config.yml'
     mode: '0644'
 
 - name: Create traefik_proxy network
+  become: true
   docker_network:
     name: traefik_proxy
 
 - name: Restart docker compose
   become: true
   docker_compose:
-    project_src: '{{user_dir}}/traefik'
+    project_src: 'traefik'
     restarted: yes
   timeout: 600
   retries: 5

@@ -28,7 +28,7 @@ services:
     volumes:
       - "traefik_letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "{{user_dir}}/traefik/config:/etc/traefik/config"
+      - "{{traefik_dir}}/config:/etc/traefik/config"
     extra_hosts:
       - host.docker.internal:host-gateway
     labels:
