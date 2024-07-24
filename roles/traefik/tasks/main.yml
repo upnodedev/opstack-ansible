@@ -45,9 +45,9 @@
 
 - name: Restart docker compose
   become: true
-  docker_compose:
+  community.docker.docker_compose_v2:
     project_src: 'traefik'
-    restarted: yes
+    #state: restarted
   timeout: 600
   retries: 5
   register: traefik_restart_status

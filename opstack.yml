@@ -2,5 +2,6 @@
   hosts: '{{ target }}'
   gather_facts: true
   roles:
-    - opstack
+    - install-prerequisites
     - traefik
+    - opstack
