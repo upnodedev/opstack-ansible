@@ -1,15 +1,15 @@
 http:
   routers:
-    opstack_rpc-http:
-      rule: "Host(`{{domain_name}}`)"
-      service: opstack_rpc
+    faucet-http:
+      rule: "Host(`{{faucet_domain}}`)"
+      service: faucet
       entryPoints:
         - web
       middlewares:
         - main-auth
-    opstack_rpc-https:
-      rule: "Host(`{{domain_name}}`)"
-      service: opstack_rpc
+    faucet-https:
+      rule: "Host(`{{faucet_domain}}`)"
+      service: faucet
       entryPoints:
         - websecure
       middlewares:
@@ -17,7 +17,7 @@ http:
       tls:
         certResolver: main-resolver
   services:
-    opstack_rpc:
+    faucet:
       loadbalancer:
         servers:
-          - url: "http://host.docker.internal:9545/"
+          - url: "http://evm_faucet:{{faucet_port}}/"

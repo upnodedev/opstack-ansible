@@ -5,3 +5,6 @@
     - install-prerequisites
     - traefik
     - opstack
+    - blockscout
+    - faucet
+    - bridge

@@ -1,0 +1,29 @@
+---
+# tasks file for faucet
+- name: Generate faucet .env file file
+  template:
+    src: faucet.env.j2
+    dest: 'opstack-compose/faucet/.env'
+    mode: '0644'
+
+- name: Start faucet
+  become: true
+  community.docker.docker_compose_v2:
+    project_src: 'opstack-compose/faucet'
+  timeout: 600
+  retries: 5
+  ignore_errors: yes
+
+- name: Copy traefik dynamic config file
+  template:
+    src: traefik-dynamic-config.yml.j2
+    dest: 'traefik/config/faucet_config.yml'
+    mode: '0644'
+
+- name: Restart docker compose
+  become: true
+  community.docker.docker_compose_v2:
+    project_src: 'traefik'
+    state: restarted
+  timeout: 600
+  retries: 5

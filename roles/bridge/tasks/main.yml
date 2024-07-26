@@ -1,0 +1,36 @@
+---
+# tasks file for bridge
+- name: Generate bridge indexer .env file file
+  template:
+    src: 'bridge-indexer.env.j2'
+    dest: 'opstack-compose/bridge/indexer.env'
+    mode: '0644'
+
+- name: Generate bridge ui.env file file
+  template:
+    src: 'bridge-ui.env.j2'
+    dest: 'opstack-compose/bridge/ui.env'
+    mode: '0644'
+
+- name: Start bridge
+  become: true
+  community.docker.docker_compose_v2:
+    project_src: 'opstack-compose/bridge'
+    #build: always
+  timeout: 600
+  retries: 5
+  ignore_errors: yes
+
+- name: Copy traefik dynamic config file
+  template:
+    src: traefik-dynamic-config.yml.j2
+    dest: 'traefik/config/bridge_config.yml'
+    mode: '0644'
+
+- name: Restart docker compose
+  become: true
+  community.docker.docker_compose_v2:
+    project_src: 'traefik'
+    state: restarted
+  timeout: 600
+  retries: 5

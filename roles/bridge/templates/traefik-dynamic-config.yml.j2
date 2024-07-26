@@ -1,0 +1,43 @@
+http:
+  routers:
+    bridge-indexer-http:
+      rule: "Host(`{{bridge_indexer_domain}}`)"
+      service: bridge-indexer
+      entryPoints:
+        - web
+      middlewares:
+        - main-auth
+    bridge-indexer-https:
+      rule: "Host(`{{bridge_indexer_domain}}`)"
+      service: bridge
+      entryPoints:
+        - websecure
+      middlewares:
+        - main-auth
+      tls:
+        certResolver: main-resolver
+    bridge-ui-http:
+      rule: "Host(`{{bridge_ui_domain}}`)"
+      service: bridge-ui
+      entryPoints:
+        - web
+      middlewares:
+        - main-auth
+    bridge-ui-https:
+      rule: "Host(`{{bridge_ui_domain}}`)"
+      service: bridge-ui
+      entryPoints:
+        - websecure
+      middlewares:
+        - main-auth
+      tls:
+        certResolver: main-resolver
+  services:
+    bridge-indexer:
+      loadbalancer:
+        servers:
+          - url: "http://opstack-bridge-indexer:{{bridge_indexer_port}}/"
+    bridge-ui:
+      loadbalancer:
+        servers:
+          - url: "http://opstack-bridge-indexer:{{bridge_ui_port}}/"

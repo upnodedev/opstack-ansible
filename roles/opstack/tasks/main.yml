@@ -1,7 +1,6 @@
 ---
 # tasks file for opstack
 
-
 - name: Clone opstack-compose repo
   git:
     repo: 'https://github.com/upnodedev/opstack-compose'
@@ -9,7 +8,7 @@
 
 - name: Generate env file file
   template:
-    src: templ.env.j2
+    src: opstack.env.j2
     dest: 'opstack-compose/.env'
     mode: '0644'
 
@@ -24,14 +23,49 @@
   retries: 5
   ignore_errors: yes
 
-- name: Start blockscout
-  become: true
-  community.docker.docker_compose_v2:
-    project_src: 'opstack-compose/blockscout'
-    #build: always
-  timeout: 600
-  retries: 5
-  ignore_errors: yes
+#- name: Start blockscout
+#  become: true
+#  community.docker.docker_compose_v2:
+#    project_src: 'opstack-compose/blockscout'
+#    #build: always
+#  timeout: 600
+#  retries: 5
+#  ignore_errors: yes
+
+#- name: Generate faucet .env file file
+#  template:
+#    src: faucet.env.j2
+#    dest: 'opstack-compose/faucet/.env'
+#    mode: '0644'
+
+#- name: Start faucet
+#  become: true
+#  community.docker.docker_compose_v2:
+#    project_src: 'opstack-compose/faucet'
+#  timeout: 600
+#  retries: 5
+#  ignore_errors: yes
+
+#- name: Generate bridge indexer .env file file
+#  template:
+#    src: 'bridge-indexer.env.j2'
+#    dest: 'opstack-compose/bridge/indexer.env'
+#    mode: '0644'
+
+#- name: Generate bridge ui.env file file
+#  template:
+#    src: 'bridge-ui.env.j2'
+#    dest: 'opstack-compose/bridge/ui.env'
+#    mode: '0644'
+
+#- name: Start bridge
+#  become: true
+#  community.docker.docker_compose_v2:
+#    project_src: 'opstack-compose/bridge'
+#    #build: always
+#  timeout: 600
+#  retries: 5
+#  ignore_errors: yes
 
 - name: Copy traefik dynamic config file
   template:

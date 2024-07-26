@@ -1,0 +1,3 @@
+---
+# defaults file for blockscout
+blockscout_port: 4000
