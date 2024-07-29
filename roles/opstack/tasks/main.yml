@@ -5,6 +5,7 @@
   git:
     repo: 'https://github.com/upnodedev/opstack-compose'
     dest: 'opstack-compose'
+    force: true
 
 - name: Generate env file file
   template:

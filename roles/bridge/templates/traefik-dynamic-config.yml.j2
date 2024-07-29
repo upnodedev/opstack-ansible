@@ -36,8 +36,8 @@ http:
     bridge-indexer:
       loadbalancer:
         servers:
-          - url: "http://opstack-bridge-indexer:{{bridge_indexer_port}}/"
+          - url: "http://opstack-bridge-indexer:4241/"
     bridge-ui:
       loadbalancer:
         servers:
-          - url: "http://opstack-bridge-indexer:{{bridge_ui_port}}/"
+          - url: "http://opstack-bridge-indexer:4242/"

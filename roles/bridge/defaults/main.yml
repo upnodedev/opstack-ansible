@@ -1,6 +1,5 @@
 ---
 # defaults file for bridge
-bridge_indexer_port: 3000
 l2_rpc_url: 'http://127.0.0.1:8545'
 
 l1_chain_id: '17000'

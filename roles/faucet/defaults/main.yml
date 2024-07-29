@@ -5,4 +5,3 @@ faucet_interval: 1440
 faucet_port: 8080
 l2_rpc_url: 'http://127.0.0.1:8545'
 
-l1_chain_id: '17000'
