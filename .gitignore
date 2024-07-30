@@ -1,3 +1,4 @@
 inventory.ini
 node_modules
 test.json
+.env

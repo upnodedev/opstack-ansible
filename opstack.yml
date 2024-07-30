@@ -1,5 +1,6 @@
 - name: Launch OPStack
-  hosts: '{{ target }}'
+  #hosts: '{{ target }}'
+  hosts: all
   gather_facts: true
   roles:
     - install-prerequisites
