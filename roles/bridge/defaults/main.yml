@@ -1,5 +1,6 @@
 ---
 # defaults file for bridge
-l2_rpc_url: 'http://127.0.0.1:8545'
+l2_rpc_url: 'http://host.docker.internal:8545'
 
 l1_chain_id: '17000'
+l1_portal_address: '0xF237B845F73876eb5F8CF6C6870c3d28740570B8'

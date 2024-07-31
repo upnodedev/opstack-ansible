@@ -3,5 +3,5 @@
 faucet_amount: 0.001
 faucet_interval: 1440
 faucet_port: 8080
-l2_rpc_url: 'http://127.0.0.1:8545'
+l2_rpc_url: 'http://host.docker.internal:8545'
 

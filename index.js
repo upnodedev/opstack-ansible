@@ -49,7 +49,6 @@ app.use(express.json());
     bridge: {
         indexer_domain:
         ui_domain:
-        l1_portal_address:
     }
 }
 */
@@ -60,7 +59,6 @@ app.post("/opstack", (req, res, next) => {
  ansiblePrivateKeyFile=process.env.OPSTACK_PRIVATE_KEY_FILE
  
  let ansibleVars={
-    target: 'node',
     ansible_host: request.host.address,
     ansible_port: request.host.port || 22,
     ansible_user: request.host.user,
@@ -79,7 +77,6 @@ app.post("/opstack", (req, res, next) => {
     faucet_private_key: request.faucet.private_key,
     bridge_indexer_domain: request.bridge.indexer_domain,
     bridge_ui_domain: request.bridge.ui_domain,
-    l1_portal_address: request.bridge.l1_portal_address,
     user_email: request.shared.user_email,
     http_password: request.shared.http_password,
     http_username: request.shared.http_username
