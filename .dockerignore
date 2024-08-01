@@ -1,0 +1,6 @@
+.git
+.gitignore
+example.env
+test.json
+inventory.ini
+node_modules

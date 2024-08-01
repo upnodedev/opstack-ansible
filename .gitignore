@@ -2,3 +2,4 @@ inventory.ini
 node_modules
 test.json
 .env
+ssh_private_key.pem

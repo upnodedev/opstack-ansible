@@ -1,0 +1,35 @@
+
+- name: Install hdwallet package
+  pip:
+    name: hdwallet
+
+- set_fact:
+    have_all_private_keys: false
+    have_no_private_keys: false
+
+- set_fact:
+    have_all_private_keys: true
+  when: (seed_phrase is not defined or seed_phrase == "test test test test test test test test test test test junk") and admin_private_key is defined and batcher_private_key is defined and proposer_private_key is defined and sequencer_private_key is defined
+
+- set_fact:
+    have_no_private_keys: true'
+  when: admin_private_key is not defined and batcher_private_key is not defined and proposer_private_key is not defined and sequencer_private_key is not defined
+
+- ansible.builtin.fail:
+    msg: Either a seed phrase or all of the following private keys (Admin, Batcher, Proposer, and Sequencer) must be provided.
+  when: not have_all_private_keys and not have_no_private_keys
+
+- name: Generate data from existing mnemonic
+  block:
+  - name: Run generate_accounts using existng mnemonic
+    script: 'generate_accounts.py mnemonic {{seed_phrase_language}} "{{seed_phrase}}"'
+    args:
+      executable: python3
+    register: account_output
+  - name: Read account variables
+    set_fact:
+      admin_private_key: '{{ (account_output.stdout | from_json).adminKey }}'
+      batcher_private_key: '{{ (account_output.stdout | from_json).batcherKey }}'
+      proposer_private_key: '{{ (account_output.stdout | from_json).proposerKey }}'
+      sequencer_private_key: '{{ (account_output.stdout | from_json).sequencerKey }}'
+  when: seed_phrase is defined and have_no_private_keys

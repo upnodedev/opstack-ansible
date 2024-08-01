@@ -56,7 +56,7 @@ app.use(express.json());
 app.post("/opstack", (req, res, next) => {
  const request = req.body;
 
- ansiblePrivateKeyFile=process.env.OPSTACK_PRIVATE_KEY_FILE
+ ansiblePrivateKeyFile = "./ssh_private_key.pem"
  
  let ansibleVars={
     ansible_host: request.host.address,

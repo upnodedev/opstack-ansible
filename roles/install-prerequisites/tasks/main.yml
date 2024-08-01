@@ -4,7 +4,7 @@
   become: true
   apt: name=build-essential state=latest update_cache=yes
 
-- name: Install requires package for apt module
+- name: Install required package for apt module
   become: true
   apt:
     name:

@@ -1,0 +1,13 @@
+
+services:
+  opstack-ansible:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nodejs
+    container_name: opstack-ansible
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "${OPSTACK_API_PORT:-3000}:${OPSTACK_API_PORT:-3000}"
+
