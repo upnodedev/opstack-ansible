@@ -5,6 +5,30 @@
     - install-prerequisites
     - traefik
     - opstack
-    - blockscout
-    - faucet
-    - bridge
+    - role: blockscout
+      when: include_explorer
+    - role: faucet
+      when: include_faucet
+    - role: bridge
+      when: include_bridge
+
+#- name: Launch OPStack
+#  hosts: all
+#  gather_facts: true
+#  roles:
+#    - blockscout
+#  when: include_explorer
+
+#- name: Launch OPStack
+#  hosts: all
+#  gather_facts: true
+#  roles:
+#    - faucet
+#  when: include_faucet
+
+#- name: Launch OPStack
+#  hosts: all
+#  gather_facts: true
+#  roles:
+#    - bridge
+#  when: include_bridge

@@ -26,6 +26,7 @@
     src: traefik-dynamic-config.yml.j2
     dest: 'traefik/config/bridge_config.yml'
     mode: '0644'
+  when: bridge_indexer_domain != "" or bridge_ui_domain != ""
 
 - name: Restart docker compose
   become: true

@@ -1,8 +1,8 @@
 ---
 # tasks file for opstack
 - name: Use mnemonic to generate accounts
-  import_tasks: accounts.yml
-  where: seed_phrase is defined
+  include_tasks: accounts.yml
+  when: seed_phrase is defined and not seed_phrase == ""
 
 - name: Clone opstack-compose repo
   git:
@@ -32,6 +32,7 @@
     src: traefik-dynamic-config.yml.j2
     dest: 'traefik/config/opstack_config.yml'
     mode: '0644'
+  when: domain_name != ""
 
 - name: Restart docker compose
   become: true

@@ -67,14 +67,18 @@ app.post("/opstack", (req, res, next) => {
     batcher_private_key: request.opstack.batcher_private_key,
     proposer_private_key: request.opstack.proposer_private_key,
     sequencer_private_key: request.opstack.sequencer_private_key,
+    seed_phrase: request.opstack.seed_phrase,
     l1_rpc_kind: request.l1_rpc.kind,
     l1_rpc_url: request.l1_rpc.url,
     l2_chain_id: request.shared.l2_chain_id,
     chain_name: request.shared.chain_name,
     domain_name: request.opstack.domain,
+    include_explorer: request.explorer.include,
     explorer_domain: request.explorer.domain,
+    include_faucet: request.faucet.include,
     faucet_domain: request.faucet.domain,
     faucet_private_key: request.faucet.private_key,
+    include_bridge: request.bridge.include,
     bridge_indexer_domain: request.bridge.indexer_domain,
     bridge_ui_domain: request.bridge.ui_domain,
     user_email: request.shared.user_email,
@@ -92,7 +96,9 @@ app.post("/opstack", (req, res, next) => {
     else {
         commandString += ' '
     }
-    commandString += name + '=' + value
+    if( value !== undefined){
+        commandString += name + '=' + value
+    }
  }
  
  commandString += '" -i '

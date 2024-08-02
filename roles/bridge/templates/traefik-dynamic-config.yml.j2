@@ -1,5 +1,6 @@
 http:
   routers:
+{% if bridge_indexer_domain != "" %}
     bridge-indexer-http:
       rule: "Host(`{{bridge_indexer_domain}}`)"
       service: bridge-indexer
@@ -16,6 +17,8 @@ http:
         - main-auth
       tls:
         certResolver: main-resolver
+{% endif %}
+{% if bridge_ui_domain != "" %}
     bridge-ui-http:
       rule: "Host(`{{bridge_ui_domain}}`)"
       service: bridge-ui
@@ -32,12 +35,17 @@ http:
         - main-auth
       tls:
         certResolver: main-resolver
+{% endif %}
   services:
+{% if bridge_indexer_domain != "" %}
     bridge-indexer:
       loadbalancer:
         servers:
           - url: "http://opstack-bridge-indexer:4241/"
+{% endif %}
+{% if bridge_ui_domain != "" %}
     bridge-ui:
       loadbalancer:
         servers:
           - url: "http://opstack-bridge-indexer:4242/"
+{% endif %}

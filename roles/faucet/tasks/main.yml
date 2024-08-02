@@ -19,6 +19,7 @@
     src: traefik-dynamic-config.yml.j2
     dest: 'traefik/config/faucet_config.yml'
     mode: '0644'
+  when: faucet_domain != ""
 
 - name: Restart docker compose
   become: true

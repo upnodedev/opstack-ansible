@@ -1,6 +1,6 @@
 
 - name: Install hdwallet package
-  pip:
+  community.general.pipx:
     name: hdwallet
 
 - set_fact:
@@ -8,12 +8,32 @@
     have_no_private_keys: false
 
 - set_fact:
-    have_all_private_keys: true
-  when: (seed_phrase is not defined or seed_phrase == "test test test test test test test test test test test junk") and admin_private_key is defined and batcher_private_key is defined and proposer_private_key is defined and sequencer_private_key is defined
+    have_seed_phrase: true
+  when: (seed_phrase is defined and seed_phrase != "" and seed_phrase != "test test test test test test test test test test test junk")
 
 - set_fact:
-    have_no_private_keys: true'
-  when: admin_private_key is not defined and batcher_private_key is not defined and proposer_private_key is not defined and sequencer_private_key is not defined
+    have_admin_key: true
+  when: admin_private_key is defined and admin_private_key != ""
+
+- set_fact:
+    have_batcher_key: true
+  when: batcher_private_key is defined and batcher_private_key != ""
+
+- set_fact:
+    have_proposer_key: true
+  when: proposer_private_key is defined and proposer_private_key != ""
+
+- set_fact:
+    have_sequencer_key: true
+  when: sequencer_private_key is defined and sequencer_private_key != ""
+
+- set_fact:
+    have_all_private_keys: true
+  when: not have_seed_phrase and have_admin_key and have_batcher_key and have_proposer_key and have_sequencer_key
+
+- set_fact:
+    have_no_private_keys: true
+  when: not have_admin_key and not have_batcher_key and not have_proposer_key and have_sequencer_key
 
 - ansible.builtin.fail:
     msg: Either a seed phrase or all of the following private keys (Admin, Batcher, Proposer, and Sequencer) must be provided.

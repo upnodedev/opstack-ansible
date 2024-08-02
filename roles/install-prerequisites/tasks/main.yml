@@ -12,6 +12,7 @@
       - git
       - apache2-utils
       - global
+      - pipx
       - python3-pip
       - python3-docker
   register: task_result

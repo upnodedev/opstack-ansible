@@ -1,6 +1,5 @@
 ---
 # defaults file for opstack
-seed_phrase: test test test test test test test test test test test junk
 seed_phrase_language: 'english'
 
 l1_block_time: 12
