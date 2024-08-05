@@ -32,11 +32,11 @@
     state: directory
     mode: '0755'
 
-- name: Copy traefik dynamic config file
-  template:
-    src: dynamic-config.yml.j2
-    dest: 'traefik/config/base_config.yml'
-    mode: '0644'
+#- name: Copy traefik dynamic config file
+#  template:
+#    src: dynamic-config.yml.j2
+#    dest: 'traefik/config/base_config.yml'
+#    mode: '0644'
 
 - name: Create traefik_proxy network
   become: true

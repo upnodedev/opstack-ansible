@@ -5,19 +5,19 @@ http:
       service: opstack_rpc
       entryPoints:
         - web
-      middlewares:
-        - main-auth
+#      middlewares:
+#        - main-auth
     opstack_rpc-https:
       rule: "Host(`{{domain_name}}`)"
       service: opstack_rpc
       entryPoints:
         - websecure
-      middlewares:
-        - main-auth
+#      middlewares:
+#        - main-auth
       tls:
         certResolver: main-resolver
   services:
     opstack_rpc:
       loadbalancer:
         servers:
-          - url: "http://host.docker.internal:9545/"
+          - url: "http://host.docker.internal:8545/"

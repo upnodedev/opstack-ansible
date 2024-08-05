@@ -5,15 +5,15 @@ http:
       service: blockscout
       entryPoints:
         - web
-      middlewares:
-        - main-auth
+#      middlewares:
+#        - main-auth
     blockscout-https:
       rule: "Host(`{{explorer_domain}}`)"
       service: blockscout
       entryPoints:
         - websecure
-      middlewares:
-        - main-auth
+#      middlewares:
+#        - main-auth
       tls:
         certResolver: main-resolver
   services:

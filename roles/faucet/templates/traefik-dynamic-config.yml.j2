@@ -5,15 +5,15 @@ http:
       service: faucet
       entryPoints:
         - web
-      middlewares:
-        - main-auth
+#      middlewares:
+#        - main-auth
     faucet-https:
       rule: "Host(`{{faucet_domain}}`)"
       service: faucet
       entryPoints:
         - websecure
-      middlewares:
-        - main-auth
+#      middlewares:
+#        - main-auth
       tls:
         certResolver: main-resolver
   services:

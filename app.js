@@ -14,45 +14,6 @@ app.listen(port, () => {
 
 app.use(express.json());
 
-/*
-{
-    host: {
-        address: <host ip>
-        port: <ssh port if not 22>
-        user: <username on host>
-    }
-    shared: {
-        http_username:
-        http_password:
-        user_email:
-        l2_chain_id:
-        chain:name:
-    }
-    l1_rpc: {
-        kind:
-        url:
-    }
-    opstack: {
-        admin_private_key:
-        batcher_private_key:
-        proposer_private_key:
-        sequencer_private_key:
-        domain:
-    }
-    explorer: {
-        domain:
-    }
-    faucet: {
-        domain:
-        private_key:
-    }
-    bridge: {
-        indexer_domain:
-        ui_domain:
-    }
-}
-*/
-
 app.post("/opstack", (req, res, next) => {
  const request = req.body;
 
@@ -68,6 +29,7 @@ app.post("/opstack", (req, res, next) => {
     proposer_private_key: request.opstack.proposer_private_key,
     sequencer_private_key: request.opstack.sequencer_private_key,
     seed_phrase: request.opstack.seed_phrase,
+    seed_phrase_language: request.opstack.seed_phrase_language,
     l1_rpc_kind: request.l1_rpc.kind,
     l1_rpc_url: request.l1_rpc.url,
     l2_chain_id: request.shared.l2_chain_id,
@@ -81,9 +43,9 @@ app.post("/opstack", (req, res, next) => {
     include_bridge: request.bridge.include,
     bridge_indexer_domain: request.bridge.indexer_domain,
     bridge_ui_domain: request.bridge.ui_domain,
-    user_email: request.shared.user_email,
-    http_password: request.shared.http_password,
-    http_username: request.shared.http_username
+    resolver_email: request.traefik.resolver_email,
+    http_password: request.traefik.http_password,
+    http_username: request.traefik.http_username
  }
 
  commandString = 'ansible-playbook -e "'

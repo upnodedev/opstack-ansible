@@ -23,7 +23,7 @@ services:
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.main-resolver.acme.tlschallenge=true"
-      - "--certificatesresolvers.main-resolver.acme.email={{user_email}}"
+      - "--certificatesresolvers.main-resolver.acme.email={{resolver_email}}"
       - "--certificatesresolvers.main-resolver.acme.storage=/letsencrypt/acme.json"
     volumes:
       - "traefik_letsencrypt:/letsencrypt"

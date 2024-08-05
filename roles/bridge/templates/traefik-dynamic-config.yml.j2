@@ -6,15 +6,15 @@ http:
       service: bridge-indexer
       entryPoints:
         - web
-      middlewares:
-        - main-auth
+#      middlewares:
+#        - main-auth
     bridge-indexer-https:
       rule: "Host(`{{bridge_indexer_domain}}`)"
       service: bridge
       entryPoints:
         - websecure
-      middlewares:
-        - main-auth
+#      middlewares:
+#        - main-auth
       tls:
         certResolver: main-resolver
 {% endif %}
@@ -24,15 +24,15 @@ http:
       service: bridge-ui
       entryPoints:
         - web
-      middlewares:
-        - main-auth
+#      middlewares:
+#        - main-auth
     bridge-ui-https:
       rule: "Host(`{{bridge_ui_domain}}`)"
       service: bridge-ui
       entryPoints:
         - websecure
-      middlewares:
-        - main-auth
+#      middlewares:
+#        - main-auth
       tls:
         certResolver: main-resolver
 {% endif %}
