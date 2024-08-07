@@ -14,11 +14,13 @@ app.listen(port, () => {
 
 app.use(express.json());
 
+// launches opstack on a server - see README.md for the required jaon body
 app.post("/opstack", (req, res, next) => {
  const request = req.body;
 
  ansiblePrivateKeyFile = "./ssh_private_key.pem"
  
+ // map the json to ansible variables
  let ansibleVars={
     ansible_host: request.host.address,
     ansible_port: request.host.port || 22,
@@ -48,6 +50,7 @@ app.post("/opstack", (req, res, next) => {
     http_username: request.traefik.http_username
  }
 
+ // construct the ansible-playbook command
  commandString = 'ansible-playbook -e "'
 
   let first = true
@@ -69,6 +72,7 @@ app.post("/opstack", (req, res, next) => {
  
  commandString += ', ./opstack.yml'
 
+ // execute the command
  exec(commandString, (error, stdout, stderr) => {
     commandOutputs = {
         error: error,

@@ -1,5 +1,29 @@
 ---
 # tasks file for bridge
+- name: Read the deployment data
+  shell: cat opstack-compose/data/deployments/.deploy
+  register: deploy_data_res
+
+- name: Read the deployment data
+  set_fact:
+    deploy_data: "{{ deploy_data_res.stdout | from_json }}"
+
+- name: extract DisputeGameFactoryProxy
+  set_fact:
+    dispute_gamefactory_proxy: '{{ deploy_data.DisputeGameFactoryProxy }}'
+
+- name: extract L1StandardBridgeProxy
+  set_fact:
+    l1_standard_bridge_proxy: '{{ deploy_data.L1StandardBridgeProxy }}'
+
+- name: Extract L2OutputOracleProxy
+  set_fact:
+    l2_output_oracle_proxy: '{{ deploy_data.L2OutputOracleProxy }}'
+
+- name: extract OptimismPortalProxy
+  set_fact:
+    optimism_portal_proxy: '{{ deploy_data.OptimismPortalProxy }}'
+
 - name: Generate bridge indexer .env file file
   template:
     src: 'bridge-indexer.env.j2'
