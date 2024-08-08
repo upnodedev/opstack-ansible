@@ -3,4 +3,18 @@
 l2_rpc_url: 'http://host.docker.internal:8545'
 
 l1_chain_id: '17000'
+l1_chain_name: 'ETH Holesky Testnet'
 l1_portal_address: '0xF237B845F73876eb5F8CF6C6870c3d28740570B8'
+
+l1_block_explorer_url: https://holesky.etherscan.io
+l1_block_explorer_name: Etherscan
+l1_block_explorer_api: https://api-holesky.etherscan.io/api
+
+l1_native_currency_symbol: ETH
+l1_native_currency_name: Ethereum
+l1_native_currency_decimals: 18
+
+l1_ens_registry_address: 0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e
+l1_universal_resolver_address: 0xa6ac935d4971e3cd133b950ae053becd16fe7f3b
+
+
