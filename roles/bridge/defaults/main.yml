@@ -2,6 +2,10 @@
 # defaults file for bridge
 l2_rpc_url: 'http://host.docker.internal:8545'
 
+l2_native_currency_symbol: ETH
+l2_native_currency_name: Ethereum
+l2_native_currency_decimals: 18
+
 l1_chain_id: '17000'
 l1_chain_name: 'ETH Holesky Testnet'
 l1_portal_address: '0xF237B845F73876eb5F8CF6C6870c3d28740570B8'

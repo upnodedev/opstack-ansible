@@ -48,44 +48,61 @@ The request body should be json with the following form.
 
 ```
     {
-        host: {
-            address: [ip address of the target machine]
-            port: [optional -ssh port if not 22]
-            user: [username on target machine]
-        }
-        shared: {
-            l2_chain_id: [chain id of the l2 chain]
-            chain:name: [name of the l2 chain]
-        }
-        l1_rpc: {
-            kind: [The kind of RPC provider, used to inform optimal transactions receipts fetching. Valid options: alchemy, quicknode, infura, parity, nethermind, debug_geth, erigon, basic, any]
-            url: [url of te l1 rpc]
-        }
-        opstack: {
-            admin_private_key: [the private key of the admin account]
-            batcher_private_key: [the private key of the batcher account]
-            proposer_private_key: [the private key of the proposer account]
-            sequencer_private_key: [the private key of the psp sequencer account]
-            domain: [the domain of the l2 node]
-        }
-        explorer: {
-            include: [true/false - if true the blockscout explorer will be launched]
-            domain: [domain of the explorer]
+        "host": {
+            "address": [ip address of the target machine],
+            "port": [optional -ssh port if not 22],
+            "user": [username on target machine],
+        },
+        "l2": {
+            "chain_id": [chain id of the l2 chain],
+            "chain_name": [name of the l2 chain],
+            "native_currency": {
+                "name": [optional - defaults to "Ethereum"],
+                "symbol: [optional - defaults to "ETH"],
+                "decimals": [optional - defaults to 18]
+            } 
+        }.
+        "l1" {
+            "rpc" {
+                "kind": [The kind of RPC provider, used to inform optimal transactions receipts fetching. Valid options: alchemy, quicknode, infura, parity, nethermind, debug_geth, erigon, basic, any],
+                "url": [url of te l1 rpc]
+            },
+            "native_currency": {
+                "name": [optional - defaults to "Ethereum"],
+                "symbol: [optional - defaults to "ETH"],
+                "decimals": [optional - defaults to 18]
+            },
+            "block_explorer": {
+                "url": [optional - defaults to "https://holesky.etherscan.io"],
+                "name": [optional - defaults to "Etherscan"],
+                "api": [optional - defaults to "https://api-holesky.etherscan.io/api]"
             }
-        faucet: {
-            include: [true/false - if true the faucet will be launched]
-           domain: [the domain of the faucet webpage]
-            private_key: [private key of the account that funds the faucet]
-        }
-        bridge: {
-           include: [true/false - if true the bridge will be launched]
-            indexer_domain: [domain of the bridge indexer]
-            ui_domain: [domain of the bridge ui]
-        }
-        traefik {
-            http_username: [username for access to the traefik api]
-            http_password: [password for access to the traefik api]
-            resolver_email: [email used by the certificate resolver]
+        },
+        "opstack": {
+            "admin_private_key": [the private key of the admin account],
+            "batcher_private_key": [the private key of the batcher account],
+            "proposer_private_key": [the private key of the proposer account],
+            "sequencer_private_key": [the private key of the psp sequencer account],
+            "domain": [the domain of the l2 node]
+        },
+        "explorer": {
+            "include": [true/false - if true the blockscout explorer will be launched],
+            "domain": [domain of the explorer]
+        },
+        "faucet": {
+            "include": [true/false - if true the faucet will be launched],
+            "domain": [the domain of the faucet webpage],
+            "private_key": [private key of the account that funds the faucet]
+        },
+        "bridge": {
+            "include": [true/false - if true the bridge will be launched],
+            "indexer_domain": [domain of the bridge indexer],
+            "ui_domain": [domain of the bridge ui]
+        },
+        "traefik" {
+            "http_username": [username for access to the traefik api],
+            "http_password": [password for access to the traefik api],
+            "resolver_email": [email used by the certificate resolver]
         }
     }
 ```
@@ -94,11 +111,11 @@ The opstack section can alternatiely be of the form
 
 ```
     ...
-        opstack: {
-            seed_phrase: [the mnemonic seed phrase]
-            seed_phrase_language: [optional - defaults to english]
-            domain: [the domain of the l2 node]
-    }   
+        "opstack": {
+            "seed_phrase: [the mnemonic seed phrase],
+            "seed_phrase_language": [optional - defaults to english],
+            "domain": [the domain of the l2 node]
+    },  
     ...
 ```
 

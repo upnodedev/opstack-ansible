@@ -1,3 +1,10 @@
 ---
 # defaults file for blockscout
 blockscout_port: 4000
+
+explorer_currency_name: Ether
+explorer_currency_symbol: ETH
+explorer_currency_decimals: 18
+
+explorer_logo: /images/blockscout_logo.svg
+explorer_footer_logo: /images/blockscout_logo.svg
