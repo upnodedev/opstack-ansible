@@ -86,16 +86,16 @@ The request body should be json with the following form.
             "domain": [the domain of the l2 node]
         },
         "explorer": {
-            "include": [true/false - if true the blockscout explorer will be launched],
+            "include": [true/false - defaults to true - if true the blockscout explorer will be launched],
             "domain": [domain of the explorer]
         },
         "faucet": {
-            "include": [true/false - if true the faucet will be launched],
+            "include": [true/false - defaults to true - if true the faucet will be launched],
             "domain": [the domain of the faucet webpage],
             "private_key": [private key of the account that funds the faucet]
         },
         "bridge": {
-            "include": [true/false - if true the bridge will be launched],
+            "include": [true/false - defaults to true - if true the bridge will be launched],
             "indexer_domain": [domain of the bridge indexer],
             "ui_domain": [domain of the bridge ui]
         },

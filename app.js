@@ -19,6 +19,29 @@ app.post("/opstack", (req, res, next) => {
  const request = req.body;
 
  ansiblePrivateKeyFile = "./ssh_private_key.pem"
+
+ // set defaults
+ if(!("native_currency" in request.l2)){
+    request.l2.native_currency = {}
+ }
+ if(!("native_currency" in request.l1)){
+    request.l1.native_currency = {}
+ }
+ if(!("block_explorer" in request.l1)){
+    request.l1.block_explorer = {}
+ }
+
+ if(!("include" in request.explorer)){
+    request.explorer.include = true
+ }
+
+ if(!("include" in request.faucet)){
+    request.faucet.include = true
+ }
+
+ if(!("include" in request.bridge)){
+    request.bridge.include = true
+ }
  
  // map the json to ansible variables
  let ansibleVars={
@@ -37,9 +60,9 @@ app.post("/opstack", (req, res, next) => {
     l1_native_currency_name: request.l1.native_currency.name,
     l1_native_currency_symbol: request.l1.native_currency.symbol,
     l1_native_currency_decimals: request.l1.native_currency.decimals,
-    l1_block_explorer_url: l1.block_explorer.url,
-    l1_block_explorer_name: l1.block_explorer.name,
-    l1_block_explorer_api: l1.block_explorer.api,        
+    l1_block_explorer_url: request.l1.block_explorer.url,
+    l1_block_explorer_name: request.l1.block_explorer.name,
+    l1_block_explorer_api: request.l1.block_explorer.api,        
     l2_chain_id: request.l2.chain_id,
     chain_name: request.l2.chain_name,
     l2_native_currency_name: request.l2.native_currency.name,
