@@ -36,6 +36,10 @@ To operate the rest API, a private key file with the name ssh_private_key.pem is
     node app.js
 ```
 
+#Preparing the Host Server
+
+The script assumes that the server on which opstack is to be launched is running Ubunt 22.04+ and has all required ports open. The server should also give access to the ssh key whose private key is stored in ssh_private_key.pem.
+
 #REST API
 
 ##Launch opstack
@@ -83,21 +87,21 @@ The request body should be json with the following form.
             "batcher_private_key": [the private key of the batcher account],
             "proposer_private_key": [the private key of the proposer account],
             "sequencer_private_key": [the private key of the psp sequencer account],
-            "domain": [the domain of the l2 node]
+            "domain": [the domain of the l2 node - if empty, no domain will be set but the node can be accessed using the IP address and port 8545]
         },
         "explorer": {
             "include": [true/false - defaults to true - if true the blockscout explorer will be launched],
-            "domain": [domain of the explorer]
+            "domain": [domain of the explorer - if empty, no domain will be set but the explorer can be accessed using the IP address and port 4000]
         },
         "faucet": {
             "include": [true/false - defaults to true - if true the faucet will be launched],
-            "domain": [the domain of the faucet webpage],
+            "domain": [the domain of the faucet webpage - if empty, no domain will be set but the faucet can be accessed using the IP address and port 8080],
             "private_key": [private key of the account that funds the faucet]
         },
         "bridge": {
             "include": [true/false - defaults to true - if true the bridge will be launched],
-            "indexer_domain": [domain of the bridge indexer],
-            "ui_domain": [domain of the bridge ui]
+            "indexer_domain": [domain of the bridge indexer - if empty, no domain will be set but the bridge indexer can be accessed using the IP address and port 4241],
+            "ui_domain": [domain of the bridge UI - if empty, no domain will be set but the bridge UI can be accessed using the IP address and port 4242]
         },
         "traefik" {
             "http_username": [username for access to the traefik api],
@@ -158,4 +162,4 @@ The json values above correspond to ansible variables with the following names.
    - traefik.http_password - http_password
    - traefik.http_username - http_username
 
-In addition, ansible_ssh_private_key_file should be set to ssh_private_key.json, or to the path of your keyfile if different.
+In addition, ansible_ssh_private_key_file should be set to ./ssh_private_key.json, or to the path of your keyfile if different.
