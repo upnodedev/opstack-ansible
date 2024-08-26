@@ -1,7 +1,7 @@
 ---
 # tasks file for bridge
 - name: Read the deployment data
-  shell: cat opstack-compose/data/deployments/.deploy
+  shell: cat opstack-compose/data/deployments/artifact.json
   register: deploy_data_res
 
 - name: Read the deployment data
