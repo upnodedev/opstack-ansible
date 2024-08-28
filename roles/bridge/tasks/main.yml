@@ -1,5 +1,9 @@
 ---
 # tasks file for bridge
+- name: Wait for artifact.json to be generated
+  wait_for:
+    path: opstack-compose/data/deployments/artifact.json
+
 - name: Read the deployment data
   shell: cat opstack-compose/data/deployments/artifact.json
   register: deploy_data_res

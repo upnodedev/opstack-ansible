@@ -1,5 +1,9 @@
 ---
 # tasks file for faucet
+- name: Wait for opstack to be started
+  wait_for:
+    port: 8545
+
 - name: Generate faucet .env file file
   template:
     src: faucet.env.j2
