@@ -4,3 +4,8 @@ seed_phrase_language: 'english'
 
 l1_block_time: 12
 l2_block_time: 2
+
+optimism_repo: https://github.com/ethereum-optimism/optimism.git
+optimism_branch: v1.9.0
+op_geth_repo: https://github.com/ethereum-optimism/op-geth.git
+op_geth_branch: v1.101315.2
