@@ -85,7 +85,10 @@ app.post("/opstack", (req, res, next) => {
  // construct the ansible-playbook command
  commandString = 'ansible-playbook -e "'
 
-  let first = true
+ console.log("Starting playbook")
+ console.log("Command:")
+ 
+ let first = true
  for(const [name, value] of Object.entries(ansibleVars)){
     if (first == true) {
         first = false
@@ -104,14 +107,18 @@ app.post("/opstack", (req, res, next) => {
  
  commandString += ', ./opstack.yml'
 
+ console.log(commandString)
+
  // execute the command
  exec(commandString, (error, stdout, stderr) => {
-    commandOutputs = {
+     console.log("Output:")
+     console.log(stdout)
+     commandOutputs = {
         error: error,
         stdOut: stdout,
         stdErr: stderr
-    }
-    res.json(commandOutputs)
+     }
+     res.json(commandOutputs)
  })
 
 });
