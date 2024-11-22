@@ -9,6 +9,7 @@ l2_native_currency_decimals: 18
 l1_chain_id: '17000'
 l1_chain_name: 'ETH Holesky Testnet'
 l1_portal_address: '0xF237B845F73876eb5F8CF6C6870c3d28740570B8'
+l1_portal_block_created: 0
 
 l1_block_explorer_url: https://holesky.etherscan.io
 l1_block_explorer_name: Etherscan
@@ -21,4 +22,10 @@ l1_native_currency_decimals: 18
 l1_ens_registry_address: 0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e
 l1_universal_resolver_address: 0xa6ac935d4971e3cd133b950ae053becd16fe7f3b
 
+bridge_indexer_postgres_db_user: myuser
+bridge_indexer_postgres_password: mypassword
+bridge_indexer_postgres_db: mydatabase
+bridge_indexer_app_db_user: appuser
+bridge_indexer_app_db_password: apppassword
 
+bridge_ui_logo_url: https://i.ibb.co/r36YpbK/upnode.png
